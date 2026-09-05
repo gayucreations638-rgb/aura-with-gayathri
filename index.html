@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aura with Gayathri | Handmade Art & Crafts</title>
+<meta name="description" content="Aura with Gayathri — handmade jewellery, art, crafts and gifts.">
+<style>
+:root{--blue:#315a91;--navy:#173454;--lav:#ddd5f4;--green:#dcebdc;--cream:#fffaf4;--ink:#243247;--white:#fff;--shadow:0 10px 30px #17345418}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--cream)}
+header{position:sticky;top:0;z-index:10;background:#fffdfaf2;backdrop-filter:blur(12px);border-bottom:1px solid #17345412}
+nav{max-width:1150px;margin:auto;padding:14px 20px;display:flex;align-items:center;gap:20px}
+.logo{font-weight:900;color:var(--navy);font-size:1.25rem;margin-right:auto}.logo span{display:block;font-size:.7rem;letter-spacing:2px;color:var(--blue)}
+nav a{color:var(--ink);text-decoration:none;font-weight:650;font-size:.94rem}button,.btn{border:0;border-radius:999px;padding:11px 17px;background:var(--blue);color:white;font-weight:750;cursor:pointer;text-decoration:none;display:inline-block}
+.hero{max-width:1150px;margin:0 auto;padding:75px 20px 45px;display:grid;grid-template-columns:1.15fr .85fr;gap:35px;align-items:center}
+.kicker{letter-spacing:3px;text-transform:uppercase;color:var(--blue);font-weight:800;font-size:.8rem}.hero h1{font-size:clamp(2.6rem,6vw,5rem);line-height:.98;margin:12px 0;color:var(--navy)}.hero p{font-size:1.12rem;line-height:1.7;max-width:600px}
+.hero-card{min-height:360px;border-radius:30px;background:linear-gradient(145deg,var(--lav),var(--green));display:grid;place-items:center;box-shadow:var(--shadow);font-size:6rem}
+.section{max-width:1150px;margin:auto;padding:60px 20px}.section h2{text-align:center;color:var(--navy);font-size:2rem;margin:0 0 10px}.lead{text-align:center;margin:0 auto 30px;max-width:650px}
+.progress{background:white;border-radius:22px;padding:24px;box-shadow:var(--shadow);max-width:750px;margin:25px auto}.progress-top{display:flex;justify-content:space-between;font-weight:800}.bar{height:18px;background:#e8edf3;border-radius:20px;overflow:hidden;margin:12px 0}.fill{height:100%;width:0;background:var(--blue);transition:width .5s}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:28px}.cat{background:white;padding:25px;border-radius:20px;text-align:center;box-shadow:var(--shadow);cursor:pointer}.cat b{display:block;margin-top:8px}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:30px}.product{background:white;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}.pic{height:180px;background:linear-gradient(135deg,var(--lav),var(--green));display:grid;place-items:center;font-size:4rem}.product-body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}.price{font-weight:900;color:var(--navy);font-size:1.1rem}.product-body button{margin-top:auto}
+.feature{background:var(--navy);color:white;border-radius:30px;padding:35px;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}.feature h2{color:white;text-align:left}.feature p{line-height:1.7}.fund{background:#ffffff18;padding:22px;border-radius:20px}.fund .bar{background:#ffffff35}.fund .fill{background:white}
+.form{max-width:700px;margin:25px auto;background:white;padding:25px;border-radius:24px;box-shadow:var(--shadow)}label{display:block;font-weight:700;margin:14px 0 6px}input,textarea,select{width:100%;padding:12px;border:1px solid #d7dfe8;border-radius:12px;font:inherit}textarea{min-height:110px}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}.about-card{background:var(--green);padding:30px;border-radius:25px;line-height:1.8}
+footer{background:#122942;color:white;text-align:center;padding:35px 20px;margin-top:50px}.cart{position:fixed;right:18px;bottom:18px;background:white;padding:15px 18px;border-radius:18px;box-shadow:0 12px 35px #0002;z-index:20}.cart strong{color:var(--navy)}
+.notice{font-size:.88rem;color:#667;margin-top:8px}
+@media(max-width:800px){nav a{display:none}.hero,.feature,.about{grid-template-columns:1fr}.categories{grid-template-columns:repeat(2,1fr)}.products{grid-template-columns:repeat(2,1fr)}.hero-card{min-height:250px}}
+@media(max-width:480px){.products{grid-template-columns:1fr}.hero{padding-top:45px}.categories{gap:10px}.section{padding:45px 15px}}
+
+/* Professional checkout demo */
+.mini-cart-btn{margin-top:8px;width:100%;padding:9px;border:0;border-radius:10px;background:var(--navy);color:white;cursor:pointer;font-weight:700}
+.overlay{display:none;position:fixed;inset:0;background:rgba(18,41,66,.52);z-index:50;padding:20px;overflow:auto;backdrop-filter:blur(4px)}
+.overlay.show{display:flex;align-items:center;justify-content:center}
+.panel{width:min(900px,100%);background:#fff;border-radius:26px;padding:26px;box-shadow:0 25px 70px #0004;animation:pop .18s ease}
+@keyframes pop{from{transform:translateY(10px);opacity:.5}to{transform:none;opacity:1}}
+.cart-panel{max-width:620px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.panel-head h2{margin:0}.icon-btn{border:0;background:#f2f5f8;border-radius:50%;width:38px;height:38px;font-size:25px;cursor:pointer}
+.cart-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:15px 0;border-bottom:1px solid #e8edf2}
+.qty{display:flex;align-items:center;gap:8px}.qty button{width:30px;height:30px;border:0;border-radius:8px;background:#e8eef5;cursor:pointer}
+.remove{border:0;background:none;color:#a44;cursor:pointer}.cart-total,.sum-row{display:flex;justify-content:space-between;gap:15px;padding:16px 0}.checkout-btn{width:100%;padding:14px 18px;border:0;border-radius:13px;background:var(--navy);color:white;font-weight:800;font-size:1rem;cursor:pointer}.steps{display:flex;justify-content:space-between;gap:8px;margin:18px 0;padding-bottom:15px;border-bottom:1px solid #e6ebf0;font-size:.82rem;color:#8893a0}.steps span.active{color:var(--navy);font-weight:800}
+.checkout-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:25px}.checkout-panel label{display:block;margin:12px 0 6px;font-weight:700;font-size:.9rem}.checkout-panel input,.checkout-panel textarea{width:100%;padding:12px;border:1px solid #d7dee6;border-radius:11px;font:inherit;box-sizing:border-box}.checkout-panel textarea{min-height:85px;resize:vertical}.two-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.summary-card,.success-card{background:#f7f9fb;border-radius:18px;padding:18px}.summary-line{display:flex;justify-content:space-between;gap:10px;padding:8px 0;font-size:.9rem}.payment-note{padding:12px 14px;background:#fff8df;border-radius:12px;margin-bottom:15px;color:#6f5b17}.payment-options{display:grid;gap:10px}.pay-option{display:flex!important;align-items:center;gap:12px;padding:15px;border:1px solid #dce3ea;border-radius:14px;cursor:pointer;margin:0!important}.pay-option input{width:auto}.pay-option span{font-size:1.4rem}.pay-option div{display:flex;flex-direction:column}.pay-option small{color:#6f7780;margin-top:3px}.grand{font-size:1.2rem}.success-panel{text-align:center;max-width:520px}.success-icon{margin:5px auto 15px;width:70px;height:70px;border-radius:50%;display:grid;place-items:center;background:#dcebdc;color:#27552e;font-size:40px;font-weight:900}.success-card{display:grid;grid-template-columns:1fr 1fr;text-align:left;gap:10px;margin:20px 0}.empty-cart{text-align:center;padding:35px 10px;color:#667}
+@media(max-width:700px){.checkout-grid{grid-template-columns:1fr}.summary-card{order:-1}.cart-row{grid-template-columns:1fr auto}.cart-row .remove{grid-column:2}.panel{padding:20px}.overlay{padding:10px}}
+
+</style>
+</head>
+<body>
+<header><nav>
+<a class="logo" href="#home">AURA WITH GAYATHRI<span>CREATE • DREAM • INSPIRE</span></a>
+<a href="#shop">Shop</a><a href="#custom">Custom</a><a href="#story">My Story</a><a href="#studio">Studio Fund</a>
+<button onclick="openCart()">🛒 <span id="cartCount">0</span></button>
+</nav></header>
+
+<main id="home">
+<section class="hero">
+<div><div class="kicker">Handmade • Creative • Made with love</div>
+<h1>Little creations.<br>Big dreams.</h1>
+<p>Welcome to Aura with Gayathri — a creative little shop for handmade jewellery, art, crafts and thoughtful gifts.</p>
+<a class="btn" href="#shop">Shop the collection</a>
+<a class="btn" style="background:var(--lav);color:var(--navy);margin-left:8px" href="#custom">Make it custom</a></div>
+<div class="hero-card">🎨💎🌸</div>
+</section>
+
+<section class="section" id="studio">
+<div class="feature"><div><div class="kicker" style="color:#dcebdc">My dream studio</div><h2>Help me build my ₹20,000 art studio!</h2><p>Every purchase contributes to the journey from a simple creative corner to my dream art & craft studio.</p></div>
+<div class="fund"><div class="progress-top"><span>Studio Fund</span><span id="fundText">₹0 / ₹20,000</span></div><div class="bar"><div class="fill" id="fundFill"></div></div><small>Demo tracker — update the amount after recording real profit.</small></div></div>
+</section>
+
+<section class="section" id="shop"><h2>Shop the collection</h2><p class="lead">Start small, choose handmade, and take home a little piece of creativity.</p>
+<div class="categories">
+<div class="cat" onclick="filter('Jewellery')">💎<b>Jewellery</b></div><div class="cat" onclick="filter('Art')">🎨<b>Art</b></div><div class="cat" onclick="filter('Crafts')">✂️<b>Crafts</b></div><div class="cat" onclick="filter('Gifts')">🎁<b>Gifts</b></div>
+</div><div class="products" id="products"></div></section>
+
+<section class="section" id="custom"><h2>Custom creations</h2><p class="lead">You imagine it. Aura creates it. ✨</p>
+<form class="form" onsubmit="submitCustom(event)">
+<label>Your name</label><input required id="cname">
+<label>What would you like?</label><select id="ctype"><option>Bracelet</option><option>Painting</option><option>Keychain</option><option>Gift box</option><option>Other</option></select>
+<label>Colours / design / name or text</label><textarea required id="cdesc"></textarea>
+<label>Approximate budget</label><input id="cbudget" type="number" min="1" placeholder="₹">
+<button type="submit">Send custom request</button><div class="notice">For a real store, have a parent/guardian manage customer contact, payments and order handling.</div>
+</form></section>
+
+<section class="section" id="story"><div class="about">
+<div><div class="kicker">My creative journey</div><h2 style="text-align:left">Hi, I'm Gayathri! 🌸</h2><p style="line-height:1.8">I love art, crafts and turning simple ideas into handmade creations. Aura with Gayathri is my little creative world — and this website is the beginning of a dream.</p></div>
+<div class="about-card"><b>THE PLAN</b><br>Make → Photograph → List → Sell → Record costs → Save profit → Build the studio 🎨<br><br><b>Next milestone:</b> create the first 20-product collection.</div>
+</div></section>
+</main>
+
+
+<div class="cart" id="cartBox">
+  🛒 <strong id="cartSummary">0 items • ₹0</strong>
+  <button class="mini-cart-btn" onclick="openCart()">View cart</button>
+</div>
+
+<div class="overlay" id="cartOverlay" onclick="closeCart(event)">
+  <div class="panel cart-panel" onclick="event.stopPropagation()">
+    <div class="panel-head"><h2>Your Aura Cart</h2><button class="icon-btn" onclick="closeCart()">×</button></div>
+    <div id="cartItems"></div>
+    <div class="cart-total"><span>Subtotal</span><strong id="cartTotal">₹0</strong></div>
+    <button class="checkout-btn" onclick="startCheckout()">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<div class="overlay" id="checkoutOverlay">
+  <div class="panel checkout-panel">
+    <div class="panel-head"><h2>Secure Checkout</h2><button class="icon-btn" onclick="closeCheckout()">×</button></div>
+    <div class="steps"><span class="active">1 Cart</span><span class="active">2 Details</span><span>3 Payment</span><span>4 Done</span></div>
+    <form id="checkoutForm" onsubmit="goToPayment(event)">
+      <div class="checkout-grid">
+        <div>
+          <h3>Delivery details</h3>
+          <label>Full name</label><input id="buyerName" required autocomplete="name">
+          <label>Phone number</label><input id="buyerPhone" required type="tel" inputmode="tel" autocomplete="tel" pattern="[0-9 +()-]{8,}">
+          <label>Email</label><input id="buyerEmail" required type="email" autocomplete="email">
+          <label>Address</label><textarea id="buyerAddress" required autocomplete="street-address"></textarea>
+          <div class="two-fields"><div><label>City</label><input id="buyerCity" required></div><div><label>PIN code</label><input id="buyerPin" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6"></div></div>
+          <button class="checkout-btn" type="submit">Continue to Payment →</button>
+        </div>
+        <div class="summary-card"><h3>Order summary</h3><div id="checkoutSummary"></div><hr><div class="sum-row"><span>Subtotal</span><b id="checkoutSubtotal">₹0</b></div><div class="sum-row"><span>Delivery</span><b>Calculated by parent/guardian</b></div></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="overlay" id="paymentOverlay">
+  <div class="panel checkout-panel">
+    <div class="panel-head"><h2>Choose Payment</h2><button class="icon-btn" onclick="closePayment()">×</button></div>
+    <div class="steps"><span class="active">1 Cart</span><span class="active">2 Details</span><span class="active">3 Payment</span><span>4 Done</span></div>
+    <div class="payment-note">Demo checkout — no real payment is processed.</div>
+    <div class="payment-options">
+      <label class="pay-option"><input type="radio" name="pay" value="UPI" checked><span>📱</span><div><b>UPI</b><small>Google Pay / PhonePe / Paytm / BHIM</small></div></label>
+      <label class="pay-option"><input type="radio" name="pay" value="Card"><span>💳</span><div><b>Debit / Credit Card</b><small>Demo selection only</small></div></label>
+      <label class="pay-option"><input type="radio" name="pay" value="Net Banking"><span>🏦</span><div><b>Net Banking</b><small>Demo selection only</small></div></label>
+      <label class="pay-option"><input type="radio" name="pay" value="COD"><span>📦</span><div><b>Cash on Delivery</b><small>Only if your parent/guardian enables it</small></div></label>
+    </div>
+    <div class="sum-row grand"><span>Total</span><strong id="paymentTotal">₹0</strong></div>
+    <button class="checkout-btn" onclick="placeDemoOrder()">Place Demo Order ✓</button>
+  </div>
+</div>
+
+<div class="overlay" id="successOverlay">
+  <div class="panel success-panel">
+    <div class="success-icon">✓</div>
+    <div class="kicker">Order received</div>
+    <h2>Thank you for supporting Aura! 🌸</h2>
+    <p>Your demo order <b id="orderNumber"></b> has been created successfully.</p>
+    <div class="success-card"><span>Payment</span><b id="successPayment"></b><span>Total</span><b id="successTotal"></b></div>
+    <p class="notice">This is a website demo. For real orders, a parent/guardian should connect an approved payment provider and handle customer information, payments and shipping.</p>
+    <button class="checkout-btn" onclick="finishOrder()">Back to Shop</button>
+  </div>
+</div>
+
+<footer><b>AURA WITH GAYATHRI</b><p>Handmade • Creative • Made with Love</p><small>Demo shop. Payment, shipping and customer-data features should be connected with a parent/guardian before accepting real orders.</small></footer>
+
+<script>
+const products=[
+['Aura Friendship Bracelet',99,'Jewellery','💙'],['Custom Name Bracelet',149,'Jewellery','💜'],['Matching Bestie Bracelets',199,'Jewellery','🩷'],['Pearl Bracelet',149,'Jewellery','🤍'],
+['Beaded Anklet',179,'Jewellery','✨'],['Beaded Necklace',249,'Jewellery','📿'],['Simple Beaded Earrings',129,'Jewellery','💎'],['Charm Earrings',179,'Jewellery','🌟'],
+['Beaded Keychain',99,'Crafts','🔑'],['Custom Name Keychain',149,'Crafts','🏷️'],['Watercolour Bookmark',49,'Art','🖌️'],['Custom Name Bookmark',79,'Art','📖'],
+['Mini Watercolour Painting',299,'Art','🖼️'],['Custom Mini Painting',399,'Art','🎨'],['Handmade Greeting Card',79,'Crafts','💌'],['Mini Paper Craft',99,'Crafts','✂️'],
+['Friendship Gift Box',299,'Gifts','🎁'],['Mini Birthday Gift Box',349,'Gifts','🎂'],['Art Lover Gift Box',399,'Gifts','🌸'],['Custom Surprise Box',499,'Gifts','🎀']
+];
+let cart=[];
+function render(list=products){document.getElementById('products').innerHTML=list.map((p,i)=>`<article class="product"><div class="pic">${p[3]}</div><div class="product-body"><b>${p[0]}</b><span class="notice">${p[2]}</span><span class="price">₹${p[1]}</span><button onclick="add(${products.indexOf(p)})">Add to cart</button></div></article>`).join('')}
+function filter(cat){render(products.filter(p=>p[2]===cat));document.getElementById('shop').scrollIntoView()}
+
+function add(i){cart.push(products[i]);updateCart();showToast(products[i][0]+' added to cart! 💙')}
+function updateCart(){document.getElementById('cartCount').textContent=cart.length;let total=cart.reduce((s,p)=>s+p[1],0);document.getElementById('cartSummary').textContent=`${cart.length} item${cart.length===1?'':'s'} • ₹${total}`}
+function groupedCart(){const map={};cart.forEach(p=>{if(!map[p[0]])map[p[0]]={p:p,q:0};map[p[0]].q++});return Object.values(map)}
+function openCart(){renderCartPanel();document.getElementById('cartOverlay').classList.add('show')}
+function closeCart(e){if(!e||e.target===document.getElementById('cartOverlay'))document.getElementById('cartOverlay').classList.remove('show')}
+function renderCartPanel(){const wrap=document.getElementById('cartItems'),groups=groupedCart();if(!groups.length){wrap.innerHTML='<div class="empty-cart">Your cart is empty. Add something handmade! 🌸</div>';document.getElementById('cartTotal').textContent='₹0';return}wrap.innerHTML=groups.map(g=>`<div class="cart-row"><div><b>${g.p[0]}</b><div class="notice">₹${g.p[1]} each</div></div><div class="qty"><button onclick="changeQty('${g.p[0]}',-1)">−</button><b>${g.q}</b><button onclick="changeQty('${g.p[0]}',1)">+</button></div><button class="remove" onclick="removeAll('${g.p[0]}')">Remove</button></div>`).join('');document.getElementById('cartTotal').textContent='₹'+cart.reduce((s,p)=>s+p[1],0)}
+function changeQty(name,delta){if(delta>0){const p=products.find(x=>x[0]===name);if(p)cart.push(p)}else{const idx=cart.findIndex(p=>p[0]===name);if(idx>=0)cart.splice(idx,1)}updateCart();renderCartPanel()}
+function removeAll(name){cart=cart.filter(p=>p[0]!==name);updateCart();renderCartPanel()}
+function startCheckout(){if(!cart.length){showToast('Your cart is empty 🌸');return}document.getElementById('cartOverlay').classList.remove('show');renderCheckoutSummary();document.getElementById('checkoutOverlay').classList.add('show')}
+function renderCheckoutSummary(){document.getElementById('checkoutSummary').innerHTML=groupedCart().map(g=>`<div class="summary-line"><span>${g.p[0]} × ${g.q}</span><b>₹${g.p[1]*g.q}</b></div>`).join('');document.getElementById('checkoutSubtotal').textContent='₹'+cart.reduce((s,p)=>s+p[1],0)}
+function closeCheckout(){document.getElementById('checkoutOverlay').classList.remove('show')}
+function goToPayment(e){e.preventDefault();if(!e.target.checkValidity()){e.target.reportValidity();return}closeCheckout();document.getElementById('paymentTotal').textContent='₹'+cart.reduce((s,p)=>s+p[1],0);document.getElementById('paymentOverlay').classList.add('show')}
+function closePayment(){document.getElementById('paymentOverlay').classList.remove('show')}
+function placeDemoOrder(){const method=document.querySelector('input[name="pay"]:checked').value,total=cart.reduce((s,p)=>s+p[1],0);document.getElementById('orderNumber').textContent='AURA-'+Date.now().toString().slice(-6);document.getElementById('successPayment').textContent=method;document.getElementById('successTotal').textContent='₹'+total;closePayment();document.getElementById('successOverlay').classList.add('show');cart=[];updateCart()}
+function finishOrder(){document.getElementById('successOverlay').classList.remove('show');window.scrollTo({top:0,behavior:'smooth'})}
+function showToast(msg){let t=document.getElementById('toast');if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;left:50%;bottom:25px;transform:translateX(-50%);background:#122942;color:#fff;padding:12px 18px;border-radius:12px;z-index:100;font-weight:700;box-shadow:0 10px 30px #0003';document.body.appendChild(t)}t.textContent=msg;t.style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.style.display='none',1800)}
+function submitCustom(e){e.preventDefault();alert('Custom request saved as a demo! A parent/guardian should review and contact the customer before confirming any real order. 🌸');e.target.reset()}
+render();
+</script>
+</body>
+</html>
